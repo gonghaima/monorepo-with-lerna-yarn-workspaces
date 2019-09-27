@@ -94,3 +94,12 @@ $ yarn add --dev -W @babel/cli @babel/core @babel/preset-react @babel/preset-env
 
 Using -W instructs Yarn to install the given dependencies for the entire workspace. These dependencies are usually shared between all packages.
 
+Since yarn has run, you have a /node_modules folder. We don’t want to commit any of these packages, so let’s add a .gitignore.
+
+```json
+.log
+.DS_Store
+.jest-*
+lib
+node_modules
+```
