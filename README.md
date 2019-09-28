@@ -132,3 +132,55 @@ We have completed the infrastructure for a Monorepo. Let’s create some package
 ```javascript
 $ yarn add --dev -W react react-dom styled-components
 ```
+
+Then, inside of /packages let's create a folder called /button and set up our first package.
+
+```json
+{
+    "name": "button",
+    "version": "1.0.0",
+    "main": "lib/index.js",
+    "module": "src/index.js",
+    "dependencies": {
+        "react": "16.8.5",
+        "react-dom": "16.8.5",
+        "styled-components": "4.1.3"
+    },
+    "peerDependencies": {
+        "react": "^15.0.0 || ^16.0.0",
+        "react-dom": "^15.0.0 || ^16.0.0",
+        "styled-components": "^4.0.0"
+    }
+}
+```
+
+This file informs consumers the module will live inside the /src folder and the output ran through Babel (main) will live inside /lib. This will be the main entry point into the package. Listing the peerDependencies helps ensure consumers are including the correct packages.
+
+We’ll also want to link our root dependencies to our newly created package. Let’s create a script to do this inside our package.json.
+
+```shell
+"scripts": {
+  "bootstrap": "lerna bootstrap --use-workspaces"
+}
+```
+Now we can simply run yarn bootstrap to install and link all dependencies.
+
+Okay, now let’s create our first component:Button.
+
+```javascript
+import styled from 'styled-components';
+
+const Button = styled.button`
+    background: red;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 300;
+    padding: 9px 36px;
+`;
+
+export default Button;
+```
+
+Let’s test if Babel is configured properly. We should be able to run yarn build and see a /lib folder created for our new package.
