@@ -103,3 +103,24 @@ Since yarn has run, you have a /node_modules folder. We don’t want to commit a
 lib
 node_modules
 ```
+
+Okay, back to Babel. To set up the global configuration for Babel, we’ll need a babel.config.js file in the root of the repository.
+
+```json
+module.exports = {
+    plugins: ['babel-plugin-styled-components'],
+    presets: ['@babel/preset-env', '@babel/preset-react']
+};
+```
+
+This file tells Babel how to compile our packages. Now, let’s create a script to execute Babel. We’ll add this to our package.json.
+
+```javascript
+"scripts": {
+    "build": "lerna exec --parallel -- babel --root-mode upward src -d lib --ignore **/*.story.js,**/*.spec.js"
+}
+```
+
+Let’s dissect this command. lerna exec will take any command and run it over all of the different packages. This command instructs Babel to run in parallel over every package, pulling from the /src folder and compiling into the /lib folder. We don’t want to include any tests or stories (which we’ll get to later) in the compiled output.
+
+Using --root-mode upward is the special sauce to using Yarn workspaces. This tells Babel the node_modules are located in the root instead of nested inside each of the individual packages. This prevents each package from having the same node_modules and extracts them up to the root. We’ll be utilizing a similar approach for testing later.
