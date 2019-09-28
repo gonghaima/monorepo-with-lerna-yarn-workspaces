@@ -124,3 +124,11 @@ This file tells Babel how to compile our packages. Now, let’s create a script 
 Let’s dissect this command. lerna exec will take any command and run it over all of the different packages. This command instructs Babel to run in parallel over every package, pulling from the /src folder and compiling into the /lib folder. We don’t want to include any tests or stories (which we’ll get to later) in the compiled output.
 
 Using --root-mode upward is the special sauce to using Yarn workspaces. This tells Babel the node_modules are located in the root instead of nested inside each of the individual packages. This prevents each package from having the same node_modules and extracts them up to the root. We’ll be utilizing a similar approach for testing later.
+
+## React
+
+We have completed the infrastructure for a Monorepo. Let’s create some packages for it to consume. We’ll be using React and styled-components to develop our UI components, so let’s install those first.
+
+```javascript
+$ yarn add --dev -W react react-dom styled-components
+```
