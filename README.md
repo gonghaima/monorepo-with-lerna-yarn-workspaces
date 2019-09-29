@@ -284,3 +284,76 @@ describe('Button', () => {
 ```
 
 Now we can run our test via ```yarn unit```.
+
+## Multiple Packages
+
+The main reason for the Monorepo structure is to support multiple packages. This allows us to have a single lint, build, test, and release process for all packages. Let’s create an input package and add a new component.
+
+```javascript
+{
+    "name": "input",
+    "version": "1.0.0",
+    "main": "lib/index.js",
+    "module": "src/index.js",
+    "dependencies": {
+        "react": "16.8.5",
+        "react-dom": "16.8.5",
+        "styled-components": "4.1.3"
+    },
+    "peerDependencies": {
+        "react": "^15.0.0 || ^16.0.0",
+        "react-dom": "^15.0.0 || ^16.0.0",
+        "styled-components": "^4.0.0"
+    }
+}
+```
+
+```javascript
+import styled from 'styled-components';
+
+const Input = styled.input`
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 10px 40px 10px 10px;
+    width: 150px;
+`;
+
+export default Input;
+```
+
+Okay, now we have an Input component. Let’s run yarn bootstrap again to link our packages together and create a new story.
+
+```javascript
+
+import React from 'react';
+import {storiesOf} from '@storybook/react';
+
+import Input from '.';
+
+storiesOf('Input', module).add('default', () => <Input placeholder="Hello World!" />);
+```
+
+Our Storybook instance should still be running via yarn dev, but if not, then re-run the command. We can observe our component was rendered correctly.
+
+Finally, let’s ensure Babel works as expected for multiple packages by running ```yarn build```.
+
+Both packages were compiled successfully 🎉 What about testing? Let’s create another test for the Input component.
+
+```javascript
+import React from 'react';
+import renderer from 'react-test-renderer';
+import 'jest-styled-components';
+
+import Input from '.';
+
+describe('Input', () => {
+    test('renders correctly', () => {
+        const tree = renderer.create(<Input />).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+});
+```
+Then we can run yarn unit again.
