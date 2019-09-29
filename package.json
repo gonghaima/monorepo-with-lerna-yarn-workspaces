@@ -3,6 +3,7 @@
   "scripts": {
     "build": "lerna exec --parallel -- babel --root-mode upward src -d lib --ignore **/*.story.js,**/*.spec.js",
     "bootstrap": "lerna bootstrap --use-workspaces",
+    "publish-to-npm": "lerna publish from-package",
     "dev": "start-storybook -p 5555",
     "coverage": "jest --coverage",
     "unit": "jest"

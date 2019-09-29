@@ -369,3 +369,24 @@ Let’s release the first version of our packages. We can use ```npx lerna chang
 We can see it recognizes both the button and the input package. Now, let’s run npx lerna versionto simulate releasing them.
 
 Congrats! 🎉 The tags have been pushed to GitHub. If we wanted to release our packages to NPM, we would use ```npx lerna publish``` instead.
+
+## Linting & Formatting
+
+It should be as easy as possible for others to contribute. That’s why all formatting and linting is taken care of with:
+
+* ESLint
+* Stylelint
+* Prettier
+  
+Thanks to git pre-commit hooks with husky, we’re ensured all code is formatted correctly before getting pushed to GitHub.
+
+Proper linting and formatting saved us time and headaches while reviewing pull requests. We recommend you develop and agree upon linting and formatting rules to reduce the amount of “nitpick” type code review comments.
+
+## Conclusion 🎉
+
+Congratulations, you now have a fully-featured monorepo! If you’d like to take this even further, here are some other ideas:
+
+* Automate semver on your releases using Conventional Commits.
+* Create a “theme” package you can share across all other packages. This could be the start of your * design system — sharing colors, spacing, iconography, etc.
+* Extend Storybook with a variety of add ons.
+* Configure Webpack/Rollup to generate a /dist folder.
