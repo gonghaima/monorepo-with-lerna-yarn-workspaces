@@ -184,3 +184,46 @@ export default Button;
 ```
 
 Let’s test if Babel is configured properly. We should be able to run yarn build and see a /lib folder created for our new package.
+
+## Storybook
+
+Storybook provides us with an interactive UI playground for our components. This makes development a breeze. Let’s set up Storybook to view our newly created Button component.
+
+```shell
+$ yarn add --dev -W @storybook/react
+```
+
+We’ll also want to configure Storybook so it knows where to find our stories.
+
+```javscript
+import {configure} from '@storybook/react';
+
+const req = require.context('../packages', true, /.story.js$/);
+
+function loadStories() {
+    req.keys().forEach((filename) => req(filename));
+}
+
+configure(loadStories, module);
+```
+
+Then, we can create our first story for the newly created Button inside /packages/button/src.
+
+```javascript
+import React from 'react';
+import {storiesOf} from '@storybook/react';
+
+import Button from '.';
+
+storiesOf('Button', module).add('default', () => <Button>{'Button'}</Button>);
+```
+
+Finally, let’s add a script to start Storybook.
+
+```javascript
+"scripts": {
+  "dev": "start-storybook -p 5555"
+}
+```
+
+Then we can use yarn dev to view our Button 🎉
