@@ -1,5 +1,5 @@
 {
-    "name": "button",
+    "name": "monorepo-with-lerna-gonghaima-button",
     "version": "1.0.1",
     "main": "lib/index.js",
     "module": "src/index.js",
@@ -12,5 +12,6 @@
         "react": "^15.0.0 || ^16.0.0",
         "react-dom": "^15.0.0 || ^16.0.0",
         "styled-components": "^4.0.0"
-    }
+    },
+    "gitHead": "5fb1ab7e7a53b2eb71fb41b9946d6aad6fe7f6b5"
 }
