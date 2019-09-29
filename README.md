@@ -357,3 +357,15 @@ describe('Input', () => {
 });
 ```
 Then we can run yarn unit again.
+
+## Releasing
+
+*You need to commit and push to your repository before releasing. If you haven’t done that, do it now.*
+
+Let’s release the first version of our packages. We can use ```npx lerna changed``` to see which packages have changed. You can also use ```npx lerna diff``` to see specifically what lines changed.
+
+**Note**: lerna could be installed globally to remove the need to use npx. You could also add scripts in your package.json since lerna is a devDependency.
+
+We can see it recognizes both the button and the input package. Now, let’s run npx lerna versionto simulate releasing them.
+
+Congrats! 🎉 The tags have been pushed to GitHub. If we wanted to release our packages to NPM, we would use ```npx lerna publish``` instead.
