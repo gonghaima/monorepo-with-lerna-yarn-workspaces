@@ -227,3 +227,60 @@ Finally, let’s add a script to start Storybook.
 ```
 
 Then we can use yarn dev to view our Button 🎉
+
+## Testing
+
+Before we go any further, let’s set up our testing environment and create a simple test for our button. We’ll utilize Jest for unit testing. It will automatically pick up any files ending with spec.js
+
+```shell
+$ yarn add --dev -W jest jest-styled-components babel-jest react-test-renderer jest-resolve jest-haste-map
+```
+
+Next, let's configure our Jest setup in the root directory.
+
+```javascript
+
+module.exports = {
+    cacheDirectory: '.jest-cache',
+    coverageDirectory: '.jest-coverage',
+    coveragePathIgnorePatterns: ['<rootDir>/packages/(?:.+?)/lib/'],
+    coverageReporters: ['html', 'text'],
+    coverageThreshold: {
+        global: {
+            branches: 100,
+            functions: 100,
+            lines: 100,
+            statements: 100
+        }
+    },
+    testPathIgnorePatterns: ['<rootDir>/packages/(?:.+?)/lib/']
+};
+```
+
+You can modify this as you see fit. We’ll also want to add some scripts to our package.json.
+
+```shell
+"scripts": {
+  "coverage": "jest --coverage",
+  "unit": "jest"
+}
+```
+
+Finally, let’s create our first test alongside our button component. We’ll utilize Snapshot testing since this is a purely presentational component. For more information, see our other post here.
+
+```javascript
+import React from 'react';
+import renderer from 'react-test-renderer';
+import 'jest-styled-components';
+
+import Button from '.';
+
+describe('Button', () => {
+    test('renders correctly', () => {
+        const tree = renderer.create(<Button>{'Test'}</Button>).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+});
+```
+
+Now we can run our test via ```yarn unit```.
